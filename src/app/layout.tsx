@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Urbanist } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
+import { getCurrentSession } from '@/actions/auth';
+import HeaderCategorySelector from '@/components/layout/HeaderCategorySelector';
 
 const font = Urbanist({
   subsets: ['latin'],
@@ -12,17 +14,21 @@ export const metadata: Metadata = {
   description: 'Best place to shop online',
 };
 
-export default function RootLayout({
+const RootLayout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
+  const { user } = await getCurrentSession();
+
   return (
     <html lang='en'>
       <body className={`${font.className} antialiased bg-white min-h-[125vh]`}>
-        <Header />
+        <Header user={user} categorySelector={<HeaderCategorySelector />} />
         {children}
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

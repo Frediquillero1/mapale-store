@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { Urbanist } from 'next/font/google';
 import './globals.css';
+import { Urbanist } from 'next/font/google';
 import Header from '@/components/layout/Header';
 import { getCurrentSession } from '@/actions/auth';
-import HeaderCategorySelector from '@/components/layout/HeaderCategorySelector';
 import { SanityLive } from '@/sanity/lib/live';
+import HeaderCategorySelector from '@/components/layout/HeaderCategorySelector';
 
 const font = Urbanist({
   subsets: ['latin'],
@@ -24,8 +24,9 @@ const RootLayout = async ({
 
   return (
     <html lang='en'>
-      <body className={`${font.className} antialiased bg-white min-h-[125vh]`}>
-        <Header user={user} categorySelector={<HeaderCategorySelector />} />
+      <body className={`${font.className} antialiased bg-white min-h-[125vh]`}suppressHydrationWarning>
+          <Header user={user} categorySelector={<HeaderCategorySelector />}
+         />
         {children}
 
         <SanityLive />
